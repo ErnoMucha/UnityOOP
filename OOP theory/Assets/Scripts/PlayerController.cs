@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     private float speed = 10;
     private bool isItemTouched;
+    private bool isItemPicked;
+    private GameObject item;
 
     public GameObject holdItem;
 
@@ -20,10 +22,12 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
 
-        if (Input.GetKeyDown(KeyCode.Space) && isItemTouched)
+        //Pick up item.
+        if (Input.GetKeyDown(KeyCode.Space) && isItemTouched && !isItemPicked)
         {
-            //Pick up item.
-            Debug.Log("pick up");
+            isItemPicked = true;
+            item.transform.position = holdItem.transform.position;
+            item.transform.SetParent(holdItem.transform, true);
         }
     }
 
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Item"))
         {
+            item = other.gameObject;
             isItemTouched = true;
         }
     }
@@ -39,6 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Item"))
         {
+            item = null;
             isItemTouched = false;
         }
     }
