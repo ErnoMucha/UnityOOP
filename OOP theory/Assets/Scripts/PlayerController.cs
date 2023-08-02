@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private float speed = 10;
     private bool isItemTouched;
-    private bool isItemPicked;
+    [SerializeField] private bool isItemPicked;
     private GameObject item;
 
     public GameObject holdItem;
@@ -22,12 +22,26 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
 
-        //Pick up item.
-        if (Input.GetKeyDown(KeyCode.Space) && isItemTouched && !isItemPicked)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            isItemPicked = true;
-            item.transform.position = holdItem.transform.position;
-            item.transform.SetParent(holdItem.transform, true);
+            //Pick up item.
+            if (isItemTouched && !isItemPicked)
+            {
+                isItemPicked = true;
+                isItemTouched = false;
+                item.transform.position = holdItem.transform.position;
+                item.transform.SetParent(holdItem.transform, true);
+            }
+
+            //Put down item.
+            else if (!isItemTouched && isItemPicked)
+            {
+                isItemPicked = false;
+                isItemTouched = true;
+                item.transform.position = new Vector3(transform.position.x, 1.0f, transform.position.z);
+                item.transform.SetParent(null);
+                item = null;
+            }
         }
     }
 
