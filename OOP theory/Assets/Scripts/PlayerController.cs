@@ -6,8 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     private float speed = 10;
     private bool isItemTouched;
-    [SerializeField] private bool isItemPicked;
-    private GameObject item;
+    private bool isItemPicked;
+    private bool isMachineTouched;
+    private GameObject currentItem;
+    private Machine currentMachine;
 
     public GameObject holdItem;
 
@@ -24,23 +26,39 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //Pick up item.
-            if (isItemTouched && !isItemPicked)
+            if (!isMachineTouched)
             {
-                isItemPicked = true;
-                isItemTouched = false;
-                item.transform.position = holdItem.transform.position;
-                item.transform.SetParent(holdItem.transform, true);
-            }
+                //Pick up item.
+                if (isItemTouched && !isItemPicked)
+                {
+                    isItemPicked = true;
+                    isItemTouched = false;
+                    currentItem.transform.position = holdItem.transform.position;
+                    currentItem.transform.SetParent(holdItem.transform, true);
+                }
 
-            //Put down item.
-            else if (!isItemTouched && isItemPicked)
+                //Put down item.
+                else if (!isItemTouched && isItemPicked)
+                {
+                    PutDownItem();
+                }
+            }
+            else
             {
-                isItemPicked = false;
-                isItemTouched = true;
-                item.transform.position = new Vector3(transform.position.x, 1.0f, transform.position.z);
-                item.transform.SetParent(null);
-                item = null;
+                if (!isItemPicked)
+                {
+                    //Make default item if the player doesn't carry item.
+                    currentMachine.Use();
+                }
+                else
+                {
+                    //Modify item by machine's function.
+                    isItemPicked = false;
+                    isItemTouched = false;
+                    currentItem.transform.SetParent(null);
+                    currentMachine.Use(currentItem);
+                    currentItem = null;
+                }
             }
         }
     }
@@ -49,8 +67,14 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Item"))
         {
-            item = other.gameObject;
+            currentItem = other.gameObject;
             isItemTouched = true;
+        }
+
+        if (other.gameObject.CompareTag("Machine"))
+        {
+            currentMachine = other.gameObject.GetComponent<Machine>();
+            isMachineTouched = true;
         }
     }
 
@@ -58,8 +82,14 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Item"))
         {
-            item = null;
+            currentItem = null;
             isItemTouched = false;
+        }
+
+        if (other.gameObject.CompareTag("Machine"))
+        {
+            currentMachine = null;
+            isMachineTouched = false;
         }
     }
 
@@ -70,5 +100,14 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
         transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
+    }
+
+    void PutDownItem()
+    {
+        isItemPicked = false;
+        isItemTouched = true;
+        currentItem.transform.position = new Vector3(transform.position.x, 1.0f, transform.position.z);
+        currentItem.transform.SetParent(null);
+        currentItem = null;
     }
 }
