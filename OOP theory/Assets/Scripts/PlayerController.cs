@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
                     PutDownItem();
                 }
             }
-            else
+            else if (currentMachine.IsTurnedOn)
             {
                 if (!isItemPicked)
                 {
@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     //Modify item by machine's function.
+
                     isItemPicked = false;
                     isItemTouched = false;
                     currentItem.transform.SetParent(null);
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Item"))
+        if (other.gameObject.CompareTag("Item"))
         {
             currentItem = other.gameObject;
             isItemTouched = true;
