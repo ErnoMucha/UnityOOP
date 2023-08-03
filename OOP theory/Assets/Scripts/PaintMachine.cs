@@ -5,6 +5,7 @@ using UnityEngine;
 // INHERITANCE
 public class PaintMachine : Machine
 {
+    // POLYMORPHISM
     public override void Use(GameObject item)
     {
         //Call: PlayerController.cs

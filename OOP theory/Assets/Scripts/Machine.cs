@@ -55,7 +55,7 @@ public class Machine : MonoBehaviour
     {
         // ABSTRACTION
         //Call: PlayerController.cs
-        //If the player didn't carry any item make a default item with every machine.
+        //If the player didn't carry any item make a default item with every type of machine.
         if (IsTurnedOn)
         {
             Instantiate(itemPrefab, newItemPosition.transform.position, newItemPosition.transform.rotation);

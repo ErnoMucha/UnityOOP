@@ -7,6 +7,7 @@ public class PressMachine : Machine
 {
     private float pressModifier = 0.8f;
 
+    // POLYMORPHISM
     public override void Use(GameObject item)
     {
         //Call: PlayerController.cs
