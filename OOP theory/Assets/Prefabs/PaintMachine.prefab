@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2186941404092041632}
   - component: {fileID: 115686379036301394}
   - component: {fileID: 5474418895884835427}
-  - component: {fileID: 8115371703322823761}
+  - component: {fileID: -4159973998870672920}
   m_Layer: 0
   m_Name: PaintMachine
   m_TagString: Machine
@@ -95,7 +95,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 38e179b1909c247ddaa26c76b23d2734, type: 2}
+  - {fileID: 2100000, guid: 794e3e93fd87e4cd384cb929ca49f40e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,7 +138,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8115371703322823761
+--- !u!114 &-4159973998870672920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5285755813610159861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d4c3d0999d1945ad837a02800c0ff25, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d2ab920b6f18494a966e8dc2db70e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 8104919442771839064, guid: b2ab0e393840545daac7ee6344d4318a, type: 3}
